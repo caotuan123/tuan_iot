@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "369788833736",
+    "firebase_url": "https://tuan-iot-home-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tuan-iot-home",
+    "storage_bucket": "tuan-iot-home.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369788833736:android:490ffcb6c7ba6b3f9fbafd",
+        "android_client_info": {
+          "package_name": "com.example.iot_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369788833736-c74a0a0p33e8ujd47sq2h6s5gha98glb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBzGvH9J96eaEXU1rn_vEl50UqE9SSlSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369788833736-c74a0a0p33e8ujd47sq2h6s5gha98glb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
