@@ -1,12 +1,11 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:iot_app/controller/light_controller.dart';
+import 'package:iot_app/controller/iot_controller.dart';
 
 class LightUI extends StatelessWidget {
-  final controller = Get.put(LightController());
+  final controller = Get.put(IoTController());
   LightUI({Key? key}) : super(key: key);
 
   @override
@@ -24,22 +23,22 @@ class LightUI extends StatelessWidget {
               );
             }
             if (snapshot.hasData) {
-              final bool newStatus = controller.statusFromServer(snapshot);
-              controller.setStatusLight(newStatus);
+              // Only check false or true
+              controller.lightStatusFromServer(snapshot);
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    newStatus
+                    controller.statusLight
                         ? Image.asset("asset/image/light_on.png", height: 100)
                         : Image.asset("asset/image/light_off.png", height: 100),
                     const SizedBox(
                       height: 50,
                     ),
                     CupertinoSwitch(
-                      value: controller.light.value.status,
-                      onChanged: (newStatus) {
-                        controller.setStatusLight(newStatus);
+                      value: controller.statusLight,
+                      onChanged: (newStatus) async {
+                        await controller.setStatusLight(newStatus);
                       },
                     ),
                   ],

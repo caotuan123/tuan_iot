@@ -37,11 +37,14 @@ dependencies:
   firebase_core: ^1.24.0
   firebase_database: ^9.1.7
   get: ^4.6.5
+  json_annotation: ^4.7.0
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.3.0
+  json_serializable: ^6.5.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
