@@ -9,6 +9,8 @@ abstract class StatusEnum {
 
 abstract class DeviceEnum {
   static const String light = 'light';
+  static const String lock = 'lock';
+
 }
 
 abstract class TypeNotifyEnum {

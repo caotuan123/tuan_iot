@@ -15,7 +15,7 @@ class LightUI extends StatelessWidget {
         title: const Text('IOT'),
       ),
       body: StreamBuilder<Object>(
-          stream: controller.lightStatusStream(),
+          stream: controller.ioTStream(),
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return const Center(
@@ -24,31 +24,53 @@ class LightUI extends StatelessWidget {
             }
             if (snapshot.hasData) {
               // Only check false or true
-              controller.lightStatusFromServer(snapshot);
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    controller.statusLight
-                        ? Image.asset("asset/image/light_on.png", height: 100)
-                        : Image.asset("asset/image/light_off.png", height: 100),
-                    const SizedBox(
-                      height: 50,
+              controller.statusFromServer(snapshot);
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        controller.statusLight
+                            ? Image.asset("asset/image/light_on.png", height: 100)
+                            : Image.asset("asset/image/light_off.png", height: 100),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        CupertinoSwitch(
+                          value: controller.statusLight,
+                          onChanged: (newStatus) async {
+                            await controller.setStatusLight(newStatus);
+                          },
+                        ),
+                      ],
                     ),
-                    CupertinoSwitch(
-                      value: controller.statusLight,
-                      onChanged: (newStatus) async {
-                        await controller.setStatusLight(newStatus);
-                      },
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        controller.statusLock
+                            ? Image.asset("asset/image/lock_open.png", height: 100)
+                            : Image.asset("asset/image/lock_close.png", height: 100),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        CupertinoSwitch(
+                          value: controller.statusLock,
+                          onChanged: (newStatus) async {
+                            await controller.setStatusLock(newStatus);
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }
             return const SizedBox();
           }),
     );
   }
-
-
 }
