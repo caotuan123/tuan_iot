@@ -15,7 +15,7 @@ class LightUI extends StatelessWidget {
         title: const Text('IOT'),
       ),
       body: StreamBuilder<Object>(
-          stream: controller.ioTStream(),
+          stream: controller.listDeviceStream(),
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return const Center(

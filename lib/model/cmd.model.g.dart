@@ -1,19 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cmd_req.model.dart';
+part of 'cmd.model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CmdReqModel _$CmdReqModelFromJson(Map<String, dynamic> json) => CmdReqModel(
+CmdModel _$CmdModelFromJson(Map<String, dynamic> json) => CmdModel(
       cmd: json['cmd'] as String,
       device: json['device'] as String,
       type: json['type'] as int,
     );
 
-Map<String, dynamic> _$CmdReqModelToJson(CmdReqModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$CmdModelToJson(CmdModel instance) => <String, dynamic>{
       'cmd': instance.cmd,
       'device': instance.device,
       'type': instance.type,

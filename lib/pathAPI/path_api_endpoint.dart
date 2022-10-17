@@ -1,7 +1,6 @@
 class PathAPIEndpoint {
   static const String baseAPI = "test";
-  static const String light = "light";
-  static const String lock = "lock";
+  static const String device = "list_device";
+  static const String listCommand = "list_command";
   static const String isNewCommand = "is_new_command";
-  static const String rfid = "rfid";
 }
