@@ -12,7 +12,8 @@ class ResponseModel {
     final List<DeviceModel> listDevice = [];
     for (var e in json) {
       listDevice.add(DeviceModel.fromJson(e));
-    }
+
+     }
     return ResponseModel(listDevice: listDevice);
   }
 

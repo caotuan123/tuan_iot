@@ -7,10 +7,15 @@ abstract class StatusEnum {
   static const String CLOSED = 'CLOSE';
 }
 
+abstract class MethodEnum {
+  static const String DELETE = 'DELETE';
+  static const String NEW = 'NEW';
+}
+
 abstract class DeviceEnum {
   static const String light = 'light';
   static const String lock = 'lock';
-
+  static const String rifd = 'rfid';
 }
 
 abstract class TypeNotifyEnum {
