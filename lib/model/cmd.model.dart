@@ -8,7 +8,7 @@ class CmdModel {
   int type;
   CmdModel({required this.cmd, required this.device, required this.type});
 
-  factory CmdModel.fromJson(Map<String, dynamic> json) => _$CmdModelFromJson(json);
+  factory CmdModel.fromJson(Map<String, dynamic> json) => _$CmdModelFromJson(json);//de doc firebase
 
   Map<String, dynamic> toJson() => _$CmdModelToJson(this);
 }

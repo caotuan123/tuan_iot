@@ -14,14 +14,20 @@ import 'package:iot_app/pathAPI/path_api_endpoint.dart';
 class IoTController extends GetxController {
   final FirebaseDataSource _firebaseDataSource = FirebaseDataSource();
 
-  ResponseModel responseModel = ResponseModel();
+  ResponseModel responseModel = ResponseModel();//
 
-  List<CmdModel> listCmdModel = [];
+  List<CmdModel> listCmdModel = [];//request de gui len firebase
 
   final RxString notifyMessage = "".obs;
 
   // Command_line for light (Request to firebase)
   final CmdModel cmdModelLight = CmdModel(
+    cmd: StatusEnum.OFF,
+    device: DeviceEnum.light,
+    type: TypeNotifyEnum.TypeUpdate,
+  );
+
+   final CmdModel cmdModelLight1 = CmdModel(
     cmd: StatusEnum.OFF,
     device: DeviceEnum.light,
     type: TypeNotifyEnum.TypeUpdate,
@@ -127,7 +133,7 @@ class IoTController extends GetxController {
 
   @override
   void onReady() {
-    rfidStream().listen((event) {
+    rfidStream().listen((event) {//chay xuyen suot
       final rawData = jsonDecode(jsonEncode(event.snapshot.value));
       final DeviceModel rfid = DeviceModel.fromJson(rawData);
       if (rfid.isNotifyCreate == "1" && rfid.createNotify != "") {

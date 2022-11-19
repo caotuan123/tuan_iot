@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:iot_app/controller/iot_controller.dart';
 
 class LightUI extends StatelessWidget {
-  final controller = Get.put(IoTController());
+  final controller = Get.put(IoTController());//de truyen data vao
   LightUI({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class LightUI extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
         child: StreamBuilder<Object>(
-            stream: controller.listDeviceStream(),
+            stream: controller.listDeviceStream(),//stream luon thay doi 
             builder: (context, snapshot) {
               if (snapshot.data == null) {
                 return const Center(

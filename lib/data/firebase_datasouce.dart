@@ -8,6 +8,7 @@ class FirebaseDataSource {
   Future<void> setData({required Map<String, dynamic> data, String path = PathAPIEndpoint.baseAPI}) async {
     // If use set method that's make extinct data will be overwritten (list_device path must be stay always)
     await _dbRefe.child(path).update(data);
+    
   }
 
   Stream<DatabaseEvent> dataStream(String path) => _dbRefe.child(path).onValue;
