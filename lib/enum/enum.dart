@@ -17,6 +17,7 @@ abstract class DeviceEnum {
   static const String light_1 = 'light_1';
   static const String lock = 'lock';
   static const String rifd = 'rfid';
+  static const String temp_sen='temp_sen';
 }
 
 abstract class TypeNotifyEnum {

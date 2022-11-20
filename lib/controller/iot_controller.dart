@@ -144,6 +144,11 @@ class IoTController extends GetxController {
           .status ==
       StatusEnum.OPEN;
 
+  String? get valueTemp =>
+      responseModel.listDevice
+          .firstWhere((e) => e.name == DeviceEnum.temp_sen).status;
+          
+
   @override
   void onInit() {
     notifyNewCmdStream().listen((event) {
