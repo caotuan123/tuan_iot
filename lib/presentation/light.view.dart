@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:iot_app/controller/iot_controller.dart';
 
 class LightUI extends StatelessWidget {
-  final controller = Get.put(IoTController());//de truyen data vao
+  final controller = Get.put(IoTController()); //de truyen data vao
   LightUI({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class LightUI extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
         child: StreamBuilder<Object>(
-            stream: controller.listDeviceStream(),//stream luon thay doi 
+            stream: controller.listDeviceStream(), //stream luon thay doi
             builder: (context, snapshot) {
               if (snapshot.data == null) {
                 return const Center(
@@ -35,16 +35,39 @@ class LightUI extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            controller.statusLight
-                                ? Image.asset("asset/image/light_on.png", height: 100)
-                                : Image.asset("asset/image/light_off.png", height: 100),
+                            controller.statusLight0
+                                ? Image.asset("asset/image/light_on.png",
+                                    height: 100)
+                                : Image.asset("asset/image/light_off.png",
+                                    height: 100),
                             const SizedBox(
                               height: 50,
                             ),
+                            const Text("Light 0"),
                             CupertinoSwitch(
-                              value: controller.statusLight,
+                              value: controller.statusLight0,
                               onChanged: (newStatus) async {
-                                await controller.setStatusLight(newStatus);
+                                await controller.setStatusLight0(newStatus);
+                              },
+                            ),
+                          ],
+                        ),
+                           Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            controller.statusLight1
+                                ? Image.asset("asset/image/light_on.png",
+                                    height: 100)
+                                : Image.asset("asset/image/light_off.png",
+                                    height: 100),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            const Text("Light 1"),
+                            CupertinoSwitch(
+                              value: controller.statusLight1,
+                              onChanged: (newStatus) async {
+                                await controller.setStatusLight1(newStatus);
                               },
                             ),
                           ],
@@ -53,8 +76,10 @@ class LightUI extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             controller.statusLock
-                                ? Image.asset("asset/image/lock_open.png", height: 100)
-                                : Image.asset("asset/image/lock_close.png", height: 100),
+                                ? Image.asset("asset/image/lock_open.png",
+                                    height: 100)
+                                : Image.asset("asset/image/lock_close.png",
+                                    height: 100),
                             const SizedBox(
                               height: 50,
                             ),
@@ -80,14 +105,18 @@ class LightUI extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               onPressed: () => controller.newID(),
-                              style: ElevatedButton.styleFrom(primary: Colors.orangeAccent),
-                              child: const Text('Create new user', style: TextStyle(fontSize: 17)),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.orangeAccent),
+                              child: const Text('Create new user',
+                                  style: TextStyle(fontSize: 17)),
                             ),
                             const SizedBox(width: 12),
                             ElevatedButton(
                               onPressed: () => controller.deleteID(),
-                              style: ElevatedButton.styleFrom(primary: Colors.orangeAccent),
-                              child: const Text('Delete new user', style: TextStyle(fontSize: 17)),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.orangeAccent),
+                              child: const Text('Delete new user',
+                                  style: TextStyle(fontSize: 17)),
                             )
                           ],
                         )

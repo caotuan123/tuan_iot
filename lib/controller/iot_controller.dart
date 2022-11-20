@@ -14,22 +14,22 @@ import 'package:iot_app/pathAPI/path_api_endpoint.dart';
 class IoTController extends GetxController {
   final FirebaseDataSource _firebaseDataSource = FirebaseDataSource();
 
-  ResponseModel responseModel = ResponseModel();//
+  ResponseModel responseModel = ResponseModel(); //
 
-  List<CmdModel> listCmdModel = [];//request de gui len firebase
+  List<CmdModel> listCmdModel = []; //request de gui len firebase
 
   final RxString notifyMessage = "".obs;
 
   // Command_line for light (Request to firebase)
-  final CmdModel cmdModelLight = CmdModel(
+  final CmdModel cmdModelLight0 = CmdModel(
     cmd: StatusEnum.OFF,
-    device: DeviceEnum.light,
+    device: DeviceEnum.light_0,
     type: TypeNotifyEnum.TypeUpdate,
   );
 
-   final CmdModel cmdModelLight1 = CmdModel(
+  final CmdModel cmdModelLight1 = CmdModel(
     cmd: StatusEnum.OFF,
-    device: DeviceEnum.light,
+    device: DeviceEnum.light_1,
     type: TypeNotifyEnum.TypeUpdate,
   );
 
@@ -48,14 +48,14 @@ class IoTController extends GetxController {
   );
 
 // READ FROM FIREBASE
-  Stream<DatabaseEvent> notifyNewCmdStream() =>
-      _firebaseDataSource.dataStream('${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.isNewCommand}');
+  Stream<DatabaseEvent> notifyNewCmdStream() => _firebaseDataSource
+      .dataStream('${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.isNewCommand}');
 
-  Stream<DatabaseEvent> listDeviceStream() =>
-      _firebaseDataSource.dataStream('${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.device}');
+  Stream<DatabaseEvent> listDeviceStream() => _firebaseDataSource
+      .dataStream('${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.device}');
 
-  Stream<DatabaseEvent> rfidStream() =>
-      _firebaseDataSource.dataStream('${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.device}/2');
+  Stream<DatabaseEvent> rfidStream() => _firebaseDataSource
+      .dataStream('${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.device}/2');
 
   Future<void> setStatusLock(bool newStatus) async {
     cmdModelLock.cmd = newStatus ? StatusEnum.OPEN : StatusEnum.CLOSED;
@@ -68,10 +68,21 @@ class IoTController extends GetxController {
     await _setData(data: requestModel.toJson());
   }
 
-  Future<void> setStatusLight(bool newStatus) async {
-    cmdModelLight.cmd = newStatus ? StatusEnum.ON : StatusEnum.OFF;
-    cmdModelLight.type = TypeNotifyEnum.TypeReq;
-    listCmdModel.add(cmdModelLight);
+  Future<void> setStatusLight0(bool newStatus) async {
+    cmdModelLight0.cmd = newStatus ? StatusEnum.ON : StatusEnum.OFF;
+    cmdModelLight0.type = TypeNotifyEnum.TypeReq;
+    listCmdModel.add(cmdModelLight0);
+    final RequestModel requestModel = RequestModel(
+      listCmdModel: listCmdModel,
+      isNotifyNewCommand: true,
+    );
+    await _setData(data: requestModel.toJson());
+  }
+
+  Future<void> setStatusLight1(bool newStatus) async {
+    cmdModelLight1.cmd = newStatus ? StatusEnum.ON : StatusEnum.OFF;
+    cmdModelLight1.type = TypeNotifyEnum.TypeReq;
+    listCmdModel.add(cmdModelLight1);
     final RequestModel requestModel = RequestModel(
       listCmdModel: listCmdModel,
       isNotifyNewCommand: true,
@@ -106,7 +117,9 @@ class IoTController extends GetxController {
   }
 
   Future<void> _resetNotifyRfid({required Map<String, dynamic> data}) async {
-    await _firebaseDataSource.setData(data: data, path: '${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.device}/2');
+    await _firebaseDataSource.setData(
+        data: data,
+        path: '${PathAPIEndpoint.baseAPI}/${PathAPIEndpoint.device}/2');
   }
 
   void getDataFromServer(AsyncSnapshot<Object> snapshot) {
@@ -115,10 +128,21 @@ class IoTController extends GetxController {
     responseModel = ResponseModel.fromJson(rawData);
   }
 
-  bool get statusLight =>
-      responseModel.listDevice.firstWhere((e) => e.name == DeviceEnum.light).status == StatusEnum.ON;
+  bool get statusLight0 =>
+      responseModel.listDevice
+          .firstWhere((e) => e.name == DeviceEnum.light_0)
+          .status ==
+      StatusEnum.ON;
+  bool get statusLight1 =>
+      responseModel.listDevice
+          .firstWhere((e) => e.name == DeviceEnum.light_1)
+          .status ==
+      StatusEnum.ON;
   bool get statusLock =>
-      responseModel.listDevice.firstWhere((e) => e.name == DeviceEnum.lock).status == StatusEnum.OPEN;
+      responseModel.listDevice
+          .firstWhere((e) => e.name == DeviceEnum.lock)
+          .status ==
+      StatusEnum.OPEN;
 
   @override
   void onInit() {
@@ -133,18 +157,21 @@ class IoTController extends GetxController {
 
   @override
   void onReady() {
-    rfidStream().listen((event) {//chay xuyen suot
+    rfidStream().listen((event) {
+      //chay xuyen suot
       final rawData = jsonDecode(jsonEncode(event.snapshot.value));
       final DeviceModel rfid = DeviceModel.fromJson(rawData);
       if (rfid.isNotifyCreate == "1" && rfid.createNotify != "") {
-        Get.snackbar('Notification', '${rfid.createNotify}', snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('Notification', '${rfid.createNotify}',
+            snackPosition: SnackPosition.BOTTOM);
         _resetNotifyRfid(data: {
           'is_crt': "0",
           'crt_noti': "",
         });
       }
       if (rfid.isNotifyDelete == "1" && rfid.deleteNotify != "") {
-        Get.snackbar('Notification', '${rfid.deleteNotify}', snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('Notification', '${rfid.deleteNotify}',
+            snackPosition: SnackPosition.BOTTOM);
         _resetNotifyRfid(data: {
           'is_crt': "0",
           'del_noti': "",

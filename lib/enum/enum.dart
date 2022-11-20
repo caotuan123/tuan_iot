@@ -13,7 +13,8 @@ abstract class MethodEnum {
 }
 
 abstract class DeviceEnum {
-  static const String light = 'light';
+  static const String light_0 = 'light_0';
+  static const String light_1 = 'light_1';
   static const String lock = 'lock';
   static const String rifd = 'rfid';
 }
